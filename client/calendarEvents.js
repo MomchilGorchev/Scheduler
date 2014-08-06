@@ -14,3 +14,14 @@ Template.app.events({
         // TBD: Save the new content on .blur()
     }
 });
+
+Template.newEvent.events({
+   'submit #createNew': function(e, t){
+       e.preventDefault();
+       var data = {
+           title: t.find('#event-title').value,
+           start: t.find('#event-start').value
+       };
+       Events.insert(data);
+   }
+});

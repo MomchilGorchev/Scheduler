@@ -1,12 +1,11 @@
-<head>
-  <title>Scheduler</title>
-</head>
-
-<body>
-  {{> app}}
-</body>
-
 <template name="app">
-  <h1>This is mScheduler</h1>
+    <h1>This is mScheduler</h1>
+
+    <!--Only for developing-->
+    <div class="form-new">
+        {{> newEvent}}
+    <!--Only for developing-->
+    </div>
+
     <div id="calendar"></div>
 </template>
