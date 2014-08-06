@@ -1,0 +1,1 @@
+Scheduler Meteor App using fullCalendar jQuery Plugin
