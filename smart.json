@@ -1,0 +1,10 @@
+{
+  "packages": {
+    "iron-router": {},
+    "bootstrap-3": {},
+    "scss": {},
+    "fontawesome4": {},
+    "moment": {},
+    "jquery-ui": {}
+  }
+}
