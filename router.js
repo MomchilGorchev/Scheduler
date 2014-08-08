@@ -10,7 +10,7 @@ Router.map(function(){
     this.route('app', {
         path: '/',
         waitOn: function(){
-            var a = Meteor.subscribe('events');
+            a = Meteor.subscribe('events');
             return a;
         }
     });
