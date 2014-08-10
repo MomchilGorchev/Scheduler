@@ -20,6 +20,28 @@ Template.calendar.custom = function() {
                 },
                 defaultDate: '2014-08-12',
                 editable: true,
+                eventDrop: function(event, delta, revertFunc) {
+                    alert(event.title + " was dropped on " + event.start.format());
+
+                    if (!confirm("Are you sure about this change?")) {
+                        revertFunc();
+                    } else {
+                        var item = {
+                            id: event._id,
+                            newStart: event.start.format()
+                        };
+                        Meteor.call('updateEvent', item, function(err, response){
+                            if(err){
+                                console.log("Error")
+                            }
+                            else{
+                                console.log('Success');
+                            }
+                        })
+                    }
+
+
+                },
                 // TBD: Remove hard coded data and hook up a collection
                 events: arr
             });

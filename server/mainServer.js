@@ -26,6 +26,12 @@ Meteor.startup(function(){
             } else {
                 Events.remove(id);
             }
+        },
+
+        updateEvent: function(item){
+            if(item){
+                Events.update(item.id, {$set: {start: item.newStart}});
+            }
         }
     })
 });
