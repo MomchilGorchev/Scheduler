@@ -22,6 +22,20 @@ Template.newEvent.events({
            title: t.find('#event-title').value,
            start: t.find('#event-start').value
        };
-       Events.insert(data);
+       console.log(data);
+       Meteor.call('addEvent', data, function(err, response){
+           err ? console.log('No')
+               : console.log('Yes');
+                 Calendar.fullCalendar('renderEvent', data);
+       })
+   },
+   'click #clearAll': function(e, t){
+       Meteor.call('removeItems', function(err, response){
+           if(err){
+               console.log(err);
+           } else {
+               console.log('Yes');
+           }
+       })
    }
 });

@@ -9,9 +9,10 @@ Template.calendar.rendered = function(){
 Template.calendar.custom = function() {
     var arr = Events.find().fetch();
     console.log(arr);
+    Calendar = $('#calendar');
     if(arr != []){
         var sched = function(){
-            $('#calendar').fullCalendar({
+            Calendar.fullCalendar({
                 header: {
                     left: 'prev,next today',
                     center: 'title',
