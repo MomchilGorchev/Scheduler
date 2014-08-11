@@ -3,6 +3,9 @@ body{
   #calendar{
     width: 90%;
     margin: 0 auto;
+    .timestamp{
+      display: none;
+    }
   }
   .form-new{
     width: 90%;

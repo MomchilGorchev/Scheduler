@@ -8,18 +8,24 @@ Template.calendar.rendered = function(){
 
 Template.calendar.initiateCalendar = function() {
     var arr = Events.find().fetch();
-    console.log(arr);
     Calendar = $('#calendar');
     if(arr != []){
         var sched = function(){
             Calendar.fullCalendar({
+                events: arr,
                 header: {
                     left: 'prev,next today',
                     center: 'title',
                     right: 'month,agendaWeek,agendaDay'
                 },
+                defaultTimedEventDuration: '00:30:00',
+                forceEventDuration: true,
                 defaultDate: '2014-08-12',
                 editable: true,
+                eventRender: function(event, element){
+                    element.find('.fc-event-title').after("<span class='timestamp'>" +
+                            + event.timer + "</span>");
+                },
                 eventDrop: function(event, delta, revertFunc) {
                     alert(event.title + " was dropped on " + event.start.format());
 
@@ -63,9 +69,7 @@ Template.calendar.initiateCalendar = function() {
                         });
                     }
 
-                },
-                // TBD: Remove hard coded data and hook up a collection
-                events: arr
+                }
             });
         };
         sched();

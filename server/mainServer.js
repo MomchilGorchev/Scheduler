@@ -14,9 +14,10 @@ Meteor.startup(function(){
         addEvent: function(newEvent){
             if(newEvent){
                 Events.insert({
+                    timer: newEvent.timer,
                     title: newEvent.title,
                     start: newEvent.start,
-                    end: ''
+                    end: newEvent.end
                 });
             }
         },
@@ -30,6 +31,7 @@ Meteor.startup(function(){
         },
 
         updateEvent: function(item){
+            console.log(item);
             if(item){
                 switch (item.token){
                     case 'start':
@@ -37,6 +39,9 @@ Meteor.startup(function(){
                         break;
                     case 'end':
                         Events.update(item.id, {$set: {end: item.end}});
+                        break;
+                    case 'title':
+                        Events.update(item.timer, {$set: {title: item.title}});
                         break;
                     default:
                         console.log('Default case for updateEvent method');

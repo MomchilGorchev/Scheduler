@@ -3,15 +3,26 @@
  */
 
 Template.app.events({
-    'click .fc-day': function(e, t){
-        var dday = $(e.currentTarget).data('date');
-        console.log(dday);
-    },
     'click .fc-event-title': function(e, t){
-        var click = $(e.currentTarget);
-        console.log(click);
+        var click = $(e.currentTarget),
+            timeStamp = click.siblings('span.timestamp').html(),
+            data = {};
         click.attr('contenteditable', true).focus();
-        // TBD: Save the new content on .blur()
+        $(click).blur(function(){
+            data = {
+                token: 'title',
+                timer: timeStamp,
+                title: click.html()
+            };
+            console.log(data);
+            Meteor.call('updateEvent', data, function(err, response){
+                err ? console.log('No')
+                    : console.log('Yes');
+                //Calendar.fullCalendar('renderEvent', data);
+            });
+
+
+        });
     }
 });
 
@@ -20,14 +31,15 @@ Template.newEvent.events({
        e.preventDefault();
        var data = {
            title: t.find('#event-title').value,
-           start: t.find('#event-start').value
+           start: t.find('#event-start').value,
+           timer: +moment()
        };
        console.log(data);
        Meteor.call('addEvent', data, function(err, response){
            err ? console.log('No')
                : console.log('Yes');
                  Calendar.fullCalendar('renderEvent', data);
-       })
+       });
    },
    'click #clearAll': function(e, t){
        Meteor.call('removeItems', function(err, response){
