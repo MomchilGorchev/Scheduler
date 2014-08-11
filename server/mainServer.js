@@ -15,7 +15,8 @@ Meteor.startup(function(){
             if(newEvent){
                 Events.insert({
                     title: newEvent.title,
-                    start: newEvent.start
+                    start: newEvent.start,
+                    end: ''
                 });
             }
         },
@@ -30,7 +31,17 @@ Meteor.startup(function(){
 
         updateEvent: function(item){
             if(item){
-                Events.update(item.id, {$set: {start: item.newStart}});
+                switch (item.token){
+                    case 'start':
+                        Events.update(item.id, {$set: {start: item.newStart}});
+                        break;
+                    case 'end':
+                        Events.update(item.id, {$set: {end: item.end}});
+                        break;
+                    default:
+                        console.log('Default case for updateEvent method');
+                }
+
             }
         }
     })

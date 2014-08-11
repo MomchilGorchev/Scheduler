@@ -6,7 +6,7 @@ Template.calendar.rendered = function(){
     //make the redrawing reactive
 };
 
-Template.calendar.custom = function() {
+Template.calendar.initiateCalendar = function() {
     var arr = Events.find().fetch();
     console.log(arr);
     Calendar = $('#calendar');
@@ -27,6 +27,7 @@ Template.calendar.custom = function() {
                         revertFunc();
                     } else {
                         var item = {
+                            token: 'start',
                             id: event._id,
                             newStart: event.start.format()
                         };
@@ -37,9 +38,30 @@ Template.calendar.custom = function() {
                             else{
                                 console.log('Success');
                             }
-                        })
+                        });
                     }
+                },
+                eventResize: function(event, delta, revertFunc) {
 
+                    alert(event.title + " end is now " + event.end.format());
+
+                    if (!confirm("is this okay?")) {
+                        revertFunc();
+                    } else {
+                        var item = {
+                            token: 'end',
+                            id: event._id,
+                            end: event.end.format()
+                        };
+                        Meteor.call('updateEvent', item, function(err, response){
+                            if(err){
+                                console.log("Error")
+                            }
+                            else{
+                                console.log('Success');
+                            }
+                        });
+                    }
 
                 },
                 // TBD: Remove hard coded data and hook up a collection
