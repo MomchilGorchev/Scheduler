@@ -5,23 +5,20 @@
 Template.app.events({
     'click .fc-event-title': function(e, t){
         var click = $(e.currentTarget),
-            timeStamp = click.siblings('span.timestamp').html(),
+            timeStamp = +click.siblings('span.timestamp').html(),
             data = {};
         click.attr('contenteditable', true).focus();
         $(click).blur(function(){
             data = {
                 token: 'title',
                 timer: timeStamp,
-                title: click.html()
+                title: click.text()
             };
             console.log(data);
             Meteor.call('updateEvent', data, function(err, response){
                 err ? console.log('No')
                     : console.log('Yes');
-                //Calendar.fullCalendar('renderEvent', data);
             });
-
-
         });
     }
 });
@@ -29,9 +26,10 @@ Template.app.events({
 Template.newEvent.events({
    'submit #createNew': function(e, t){
        e.preventDefault();
+
        var data = {
            title: t.find('#event-title').value,
-           start: t.find('#event-start').value,
+           start: t.find('#event-start-date').value + ' ' + t.find('#event-start-time').value,
            timer: +moment()
        };
        console.log(data);

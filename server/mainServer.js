@@ -41,12 +41,12 @@ Meteor.startup(function(){
                         Events.update(item.id, {$set: {end: item.end}});
                         break;
                     case 'title':
-                        Events.update(item.timer, {$set: {title: item.title}});
+                        var a = Events.find({timer: item.timer}).fetch();
+                        Events.update(a[0]._id,  {$set: {title: item.title}});
                         break;
                     default:
                         console.log('Default case for updateEvent method');
                 }
-
             }
         }
     })
