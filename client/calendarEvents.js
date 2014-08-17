@@ -30,6 +30,7 @@ Template.newEvent.events({
        var data = {
            title: t.find('#event-title').value,
            start: t.find('#event-start-date').value + ' ' + t.find('#event-start-time').value,
+           description: t.find('#desc').value,
            timer: +moment()
        };
        console.log(data);

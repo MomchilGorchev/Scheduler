@@ -21,7 +21,9 @@ Template.calendar.initiateCalendar = function() {
 
                 eventRender: function(event, element){
                     element.find('.fc-event-title').after("<span class='timestamp'>" +
-                            + event.timer + "</span>");
+                            + event.timer + "</span><p class='description'>"
+                            + event.description + "</p>");
+
                 },
 
                 eventDrop: function(event, delta, revertFunc) {
@@ -67,6 +69,7 @@ Template.calendar.initiateCalendar = function() {
             });
         };
         sched();
+        readMore();
     }
 };
 

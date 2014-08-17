@@ -1,14 +1,30 @@
 /* CSS declarations go here */
 body{
+  h1, h2{
+    text-align: center;
+    font-family: monospace, sans-serif;
+  }
   #calendar{
     width: 90%;
     margin: 0 auto;
     .timestamp{
       display: none;
     }
+    .description{
+      padding: 10px;
+      color: darkgray;
+      background: lightblue;
+      position: relative;
+    }
   }
   .form-new{
     width: 90%;
     margin: 20px auto;
   }
+}
+.new-event{
+  background: beige;
+  padding: 15px;
+  border-radius: 10px;
+  border: 2px ridge rgb(126, 126, 120);
 }

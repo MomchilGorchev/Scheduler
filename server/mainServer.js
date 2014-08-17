@@ -17,6 +17,7 @@ Meteor.startup(function(){
                     timer: newEvent.timer,
                     title: newEvent.title,
                     start: newEvent.start,
+                    description: newEvent.description,
                     end: newEvent.end
                 });
             }

@@ -17,10 +17,20 @@
                         <input type="text" class="form-control" id="event-start-time" placeholder="Event start time">
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-xs-6">
+                        <label for="desc">Description</label>
+                        <textarea rows="5" id="desc" class="form-control" ></textarea>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-xs-6">
+                        <label for="other">Other notes</label>
+                        <textarea rows="5" id="other" class="form-control" ></textarea>
+                    </div>
+                </div>
 
             </div>
             <button id="createEvent" type="submit" class="btn btn-default">Create</button>
+            <button id="clearAll" class="btn btn-warning pull-right">Clear all</button>
         </form>
-        <button id="clearAll" class="btn btn-warning pull-right">Clear all</button>
     </div>
 </template>
