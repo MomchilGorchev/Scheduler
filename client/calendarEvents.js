@@ -3,6 +3,8 @@
  */
 
 Template.app.events({
+
+    // Handle event-title updates using item's timestamp
     'click .fc-event-title': function(e, t){
         var click = $(e.currentTarget),
             timeStamp = +click.siblings('span.timestamp').html(),
@@ -20,10 +22,24 @@ Template.app.events({
                     : console.log('Yes');
             });
         });
+    },
+
+    // Catch the click on any event
+    // and pull all its info into modal
+    'click .fc-event': function(e, t){
+        var clicked = $(e.currentTarget),
+            timeStamp = +clicked.find('span.timestamp').html(),
+            data = Events.find({timer: timeStamp}).fetch();
+
+        !data.length ?  console.log('No such event') :
+            data = data[0];
+            modalToggle(data);
     }
 });
 
 Template.newEvent.events({
+
+    // New event
    'submit #createNew': function(e, t){
        e.preventDefault();
 

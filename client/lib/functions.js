@@ -37,6 +37,16 @@ readMore = function() { /* to make sure the script runs after page load */
             })
 
         }
-
     });
 };
+
+modalToggle = function(data){
+    var modal = $('#myModal');
+    modal.find('.modal-title').html(data.title);
+    modal.find('.modal-startdate').html(data.start);
+    modal.find('.modal-ref').html('Ref.:'+data.timer);
+    modal.find('.modal-body').html(data.description);
+    modal.modal();
+};
+
+

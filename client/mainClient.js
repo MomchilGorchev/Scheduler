@@ -20,9 +20,7 @@ Template.calendar.initiateCalendar = function() {
                 editable: true,
 
                 eventRender: function(event, element){
-                    element.find('.fc-event-title').after("<span class='timestamp'>" +
-                            + event.timer + "</span><p class='description'>"
-                            + event.description + "</p>");
+                    element.find('.fc-event-title').after("<span class='timestamp'>" + event.timer);
 
                 },
 
