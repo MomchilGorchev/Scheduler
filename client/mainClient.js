@@ -67,7 +67,6 @@ Template.calendar.initiateCalendar = function() {
             });
         };
         sched();
-        readMore();
     }
 };
 

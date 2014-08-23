@@ -34,6 +34,25 @@ Template.app.events({
         !data.length ?  console.log('No such event') :
             data = data[0];
             modalToggle(data);
+    },
+
+    'click .modal-close': function(e, t){
+        var editableFields = $('#myModal').find('[contenteditable="true"]');
+        $.each(editableFields, function(key, value){
+            $(this).removeAttr('contenteditable');
+        });
+    },
+
+    'click .modal-save': function(e, t){
+        var modal = $('#myModal'),
+            editableFields = modal.find('[contenteditable="true"]'),
+            dataStore = {};
+
+        $.each(editableFields, function(key, value){
+            dataStore[$(this).data('token')] = $(this).html();
+        });
+        dataStore.timer = +modal.find('span.modal-ref').html().substring(5);
+        console.log(dataStore);
     }
 });
 
