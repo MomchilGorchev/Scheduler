@@ -43,16 +43,50 @@ Template.app.events({
         });
     },
 
+    /**
+     * 'Save button' event
+     * @param e
+     * @param t
+     *
+     * Extract data from the DOM,
+     * construct appropriate structure,
+     * and call backend method
+     */
     'click .modal-save': function(e, t){
-        var modal = $('#myModal'),
-            editableFields = modal.find('[contenteditable="true"]'),
-            dataStore = {};
 
+        // Cache the necessary data
+        var clicked = $(e.currentTarget),
+            modal = clicked.closest('#myModal'),
+            editableFields = modal.find('[contenteditable="true"]'),
+            dataStore = [],
+            buffer = {};
+
+        // Loop to order the data into array
         $.each(editableFields, function(key, value){
-            dataStore[$(this).data('token')] = $(this).html();
+            buffer = {
+                token: $(this).data('token'),
+                value: $(this).html()
+            };
+            dataStore.push(buffer);
         });
-        dataStore.timer = +modal.find('span.modal-ref').html().substring(5);
-        console.log(dataStore);
+        // Create object to pass to the server method
+        var eventObject = {
+            ref: +modal.find('span.modal-ref').html().substring(5),
+            data: dataStore
+        };
+
+        // Save the new values, close the modal and update
+        // the calendar instances of the events.
+        // Trigger the close button to clear the 'contenteditable' attributes.
+        Meteor.call('updateEventObject', eventObject, function(err, response){
+           err ? console.log('Error occurred!') :
+                $('.timestamp:contains("'+ eventObject.ref +'")')
+                    .siblings('.fc-event-title')
+                        .html(modal.find('.modal-title').html())
+                    .siblings('.fc-event-time')
+                        .html(modal.find('.modal-startdate').html().substring(11));
+           $('.modal-close').trigger('click');
+        });
     }
 });
 
