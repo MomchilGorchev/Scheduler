@@ -11,6 +11,12 @@ Meteor.startup(function(){
 
     return Meteor.methods({
 
+        /**
+         *
+         * @param newEvent - object holding all necessary data
+         * of the new item to be added
+         *
+         */
         addEvent: function(newEvent){
             if(newEvent){
                 Events.insert({
@@ -23,6 +29,12 @@ Meteor.startup(function(){
             }
         },
 
+        /**
+         *
+         * @param id - id of the item to be removed
+         * Removes all events if id is not provided
+         *
+         */
         removeItems: function(id){
             if(id == null){
                 return Events.remove({});
@@ -31,43 +43,22 @@ Meteor.startup(function(){
             }
         },
 
-        updateEvent: function(item){
-            console.log(item);
-            if(item){
-                switch (item.token){
-                    case 'start':
-                        Events.update(item.id, {$set: {start: item.newStart}});
-                        break;
-                    case 'end':
-                        Events.update(item.id, {$set: {end: item.end}});
-                        break;
-                    case 'title':
-                        var a = Events.find({timer: item.timer}).fetch();
-                        Events.update(a[0]._id,  {$set: {title: item.title}});
-                        break;
-                    default:
-                        console.log('Default case for updateEvent method');
-                }
-            }
-        },
-
-
         /**
-         *
-         * Update multiple object's properties
-         * @param eventObject
-         * e.g. {
-         *   ref: 'reference(timer) to the collection's item',
-         *   data: 'Array of objects holding
-         *          the properties in
-         *          the following format:
-         *          {
-         *              token: 'title',
-         *              value: 'Some new value'
-         *          }
-         * }
-         *
-         */
+        *
+        * Update multiple object's properties
+        * @param eventObject
+        * e.g. {
+        *   ref: 'reference(timer) to the collection's item',
+        *   data: 'Array of objects holding
+        *          the properties in
+        *          the following format:
+        *          {
+        *              token: 'title',
+        *              value: 'Some new value'
+        *          }
+        * }
+        *
+        */
         updateEventObject: function(eventObject){
 
             // Cache data

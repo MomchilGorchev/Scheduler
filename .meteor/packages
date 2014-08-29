@@ -5,10 +5,11 @@
 
 standard-app-packages
 insecure
-iron-router
-bootstrap-3
+cmather:iron-router@0.8.2
 jquery
-scss
-fontawesome4
-moment
-jquery-ui
+chrismbeckett:fontawesome4@1.1.0
+mrt:moment@2.6.0
+mrt:jquery-ui@1.9.2
+fourseven:scss
+mizzao:bootstrap-3
+

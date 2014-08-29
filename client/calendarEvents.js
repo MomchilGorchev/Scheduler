@@ -1,31 +1,17 @@
 /**
  * Created by momchillgorchev on 06/08/2014.
+ *
+ * Main events file
  */
 
 Template.app.events({
 
-    // Handle event-title updates using item's timestamp
-    'click .fc-event-title': function(e, t){
-        var click = $(e.currentTarget),
-            timeStamp = +click.siblings('span.timestamp').html(),
-            data = {};
-        click.attr('contenteditable', true).focus();
-        $(click).blur(function(){
-            data = {
-                token: 'title',
-                timer: timeStamp,
-                title: click.text()
-            };
-            console.log(data);
-            Meteor.call('updateEvent', data, function(err, response){
-                err ? console.log('No')
-                    : console.log('Yes');
-            });
-        });
-    },
-
-    // Catch the click on any event
-    // and pull all its info into modal
+    /**
+     * Catch the click on any event
+     * and pull all its info into modal
+     * This way the initial load doesn't pull
+     * unnecessary data
+     */
     'click .fc-event': function(e, t){
         var clicked = $(e.currentTarget),
             timeStamp = +clicked.find('span.timestamp').html(),
@@ -36,6 +22,9 @@ Template.app.events({
             modalToggle(data);
     },
 
+    /**
+     * Modal's close event, remove the 'contenteditable' attribute
+     */
     'click .modal-close': function(e, t){
         var editableFields = $('#myModal').find('[contenteditable="true"]');
         $.each(editableFields, function(key, value){
@@ -45,9 +34,6 @@ Template.app.events({
 
     /**
      * 'Save button' event
-     * @param e
-     * @param t
-     *
      * Extract data from the DOM,
      * construct appropriate structure,
      * and call backend method
@@ -69,6 +55,7 @@ Template.app.events({
             };
             dataStore.push(buffer);
         });
+
         // Create object to pass to the server method
         var eventObject = {
             ref: +modal.find('span.modal-ref').html().substring(5),
@@ -79,20 +66,28 @@ Template.app.events({
         // the calendar instances of the events.
         // Trigger the close button to clear the 'contenteditable' attributes.
         Meteor.call('updateEventObject', eventObject, function(err, response){
-           err ? console.log('Error occurred!') :
+            console.log(response);
+            err ? console.log('Error occurred!') :
                 $('.timestamp:contains("'+ eventObject.ref +'")')
                     .siblings('.fc-event-title')
                         .html(modal.find('.modal-title').html())
                     .siblings('.fc-event-time')
                         .html(modal.find('.modal-startdate').html().substring(11));
-           $('.modal-close').trigger('click');
+            $('.modal-close').trigger('click');
         });
     }
 });
 
+/**
+ * New event's form events
+ */
 Template.newEvent.events({
 
-    // New event
+    /**
+     * Create new event:
+     * Grab the data from the form
+     * and send it to the backend
+     */
    'submit #createNew': function(e, t){
        e.preventDefault();
 
@@ -109,6 +104,11 @@ Template.newEvent.events({
                  Calendar.fullCalendar('renderEvent', data);
        });
    },
+
+    /**
+     * CLear all events
+     * Only for debugging, delete when ready for production
+     */
    'click #clearAll': function(e, t){
        Meteor.call('removeItems', function(err, response){
            if(err){

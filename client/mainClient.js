@@ -16,7 +16,6 @@ Template.calendar.initiateCalendar = function() {
                 },
                 defaultTimedEventDuration: '00:30:00',
                 forceEventDuration: true,
-                defaultDate: '2014-08-12',
                 editable: true,
 
                 eventRender: function(event, element){
