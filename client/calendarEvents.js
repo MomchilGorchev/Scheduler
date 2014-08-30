@@ -111,11 +111,7 @@ Template.newEvent.events({
      */
    'click #clearAll': function(e, t){
        Meteor.call('removeItems', function(err, response){
-           if(err){
-               console.log(err);
-           } else {
-               console.log('Yes');
-           }
+           err ? console.log('Booo') : console.log('All cleared!');
        })
    }
 });

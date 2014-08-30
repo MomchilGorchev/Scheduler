@@ -7,7 +7,7 @@ Template.calendar.initiateCalendar = function() {
     console.log(arr);
     Calendar = $('#calendar');
     if(arr != []){
-        var sched = function(){
+         var sched = function(){
             Calendar.fullCalendar({
                 events: arr,
                 header: {
@@ -65,8 +65,7 @@ Template.calendar.initiateCalendar = function() {
                     }
                 }
             });
-        };
-        sched();
+        }();
     }
 };
 
