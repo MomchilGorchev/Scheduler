@@ -93,7 +93,7 @@ Template.newEvent.events({
 
        var data = {
            title: t.find('#event-title').value,
-           start: t.find('#event-start-date').value + ' ' + t.find('#event-start-time').value,
+           start: t.find('#event-start-date').value + 'T' + t.find('#event-start-time').value + ':00',
            description: t.find('#desc').value,
            timer: +moment()
        };

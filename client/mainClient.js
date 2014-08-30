@@ -4,6 +4,7 @@
 
 Template.calendar.initiateCalendar = function() {
     var arr = Events.find().fetch();
+    console.log(arr);
     Calendar = $('#calendar');
     if(arr != []){
         var sched = function(){
@@ -69,7 +70,16 @@ Template.calendar.initiateCalendar = function() {
     }
 };
 
-
+Template.newEvent.rendered = function(){
+  $('#event-start-date').datepicker({
+      showButtonPanel: true,
+      dateFormat: 'yy-mm-dd',
+      changeMonth: true,
+      changeYear: true,
+      showWeek: true,
+      firstDay: 1
+  });
+};
 
 
 
